@@ -1,4 +1,4 @@
-self: super: with super; rec {
-  mmtc = callPackage ./pkgs/mmtc { inherit rustTools; };
+self: super: with self; {
+  mmtc = callPackage ./pkgs/mmtc { };
   rustTools = callPackage ./pkgs/rustTools { };
 }
