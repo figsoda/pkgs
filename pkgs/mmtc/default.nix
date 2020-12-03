@@ -1,6 +1,6 @@
-{ callPackage, rust }:
+{ callPackage, rustTools }:
 
-rust.buildRustPackageWithNightly rec {
+rustTools.buildPackageWithNightly rec {
   pname = "mmtc";
   version = "0.2.6";
   src =

@@ -7,9 +7,9 @@ let
     "https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz";
 in with callPackage "${mozillaSrc}/package-set.nix" { }; rec {
   inherit (latest.rustChannels) beta nightly stable;
-  buildRustPackage = naersk.buildPackage;
-  buildRustPackageWith = toolchain: (naerskWith toolchain).buildPackage;
-  buildRustPackageWithNightly = naerskWithNightly.buildPackage;
+  inherit (naersk) buildPackage;
+  buildPackageWith = toolchain: (naerskWith toolchain).buildPackage;
+  buildPackageWithNightly = naerskWithNightly.buildPackage;
   channelOf = rustChannelOf;
   naersk = naerskWith { };
   naerskWith = toolchain:
