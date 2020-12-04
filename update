@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 
 import json, re, subprocess
+from os.path import isfile
 from urllib.request import urlopen
 
+lockfile = "sources.lock.json"
+
 pat = re.compile(r"(.*?)\s*:\s*(.*?)\s*/\s*(.*?)(\s*@\s*(.*))?")
+oldlock = json.load(open(lockfile)) if isfile(lockfile) else {}
 lock = {}
 
 for line in open("sources.txt").readlines():
@@ -18,11 +22,12 @@ for line in open("sources.txt").readlines():
 
     rev = json.load(urlopen(f"https://api.github.com/repos/{owner}/{repo}/git/trees/{ref}"))["sha"]
 
-    lock[name] = {
-        "owner": owner,
-        "repo": repo,
-        "rev": rev,
-        "sha256": subprocess.run(
+    def getsha256():
+        if name in oldlock:
+            dep = oldlock[name]
+            if dep["owner"] == owner and dep["repo"] == repo and dep["rev"] == rev:
+                return dep["sha256"]
+        return subprocess.run(
             [
                 "nix-prefetch-url",
                 "--unpack",
@@ -31,7 +36,13 @@ for line in open("sources.txt").readlines():
             check = True,
             stdout = subprocess.PIPE,
             text = True,
-        ).stdout.strip(),
+        ).stdout.strip()
+
+    lock[name] = {
+        "owner": owner,
+        "repo": repo,
+        "rev": rev,
+        "sha256": getsha256(),
     }
 
-json.dump(lock, open("sources.lock.json", "w"))
+json.dump(lock, open(lockfile, "w"))
