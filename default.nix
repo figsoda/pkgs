@@ -1,14 +1,14 @@
 self: super: 
 
 with builtins;
-with self;
+with super;
 
 let
   sources = mapAttrs
     (k: v: fetchFromGitHub v)
     (fromJSON (readFile ./sources.lock.json));
-in {
-  mmtc = callPackage ./pkgs/mmtc { inherit sources; };
+in rec {
+  mmtc = callPackage ./pkgs/mmtc { inherit rustTools sources; };
   rustTools = callPackage ./pkgs/rustTools { inherit sources; };
   xtrt = callPackage ./pkgs/xtrt { inherit sources; };
 }
