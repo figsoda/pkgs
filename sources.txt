@@ -1,0 +1,3 @@
+mmtc: figsoda/mmtc@v0.2.6
+mozilla: mozilla/nixpkgs-mozilla
+naersk: nmattia/naersk
