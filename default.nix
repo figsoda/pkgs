@@ -1,4 +1,7 @@
-self: super: with builtins self;
+self: super: 
+
+with builtins;
+with self;
 
 let
   sources = mapAttrs
