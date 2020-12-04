@@ -1,0 +1,28 @@
+name: update
+
+on:
+  schedule:
+    - cron: "0 */4 * * *"
+
+jobs:
+  update:
+    name: update
+    runs-on: ubuntu-latest  
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v12
+
+      - name: Update lock file
+        run: |
+          git config --local user.name "github-actions"
+          git config --local user.email "action@github.com"
+          [ -z "$(./update)" ] || git commit -am "update lock file"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ github.token }}
+          branch: main
