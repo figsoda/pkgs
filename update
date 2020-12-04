@@ -24,9 +24,9 @@ for line in open("sources.txt").readlines():
 
     def getsha256():
         if name in oldlock:
-            dep = oldlock[name]
-            if dep["owner"] == owner and dep["repo"] == repo and dep["rev"] == rev:
-                return dep["sha256"]
+            src = oldlock[name]
+            if src["owner"] == owner and src["repo"] == repo and src["rev"] == rev:
+                return src["sha256"]
         return subprocess.run(
             [
                 "nix-prefetch-url",
