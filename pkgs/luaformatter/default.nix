@@ -1,4 +1,4 @@
-{ antlr4, cmake, sources, stdenv }:
+{ cmake, sources, stdenv }:
 
 stdenv.mkDerivation {
   pname = "luaformatter";
