@@ -1,11 +1,15 @@
-{ sources, stdenv }:
+{ nix, sources, stdenv }:
 
-stdenv.mkDerivation {
+let
+  shebang = ''
+    ${nix}/bin/nix-shell
+    #!nix-shell -i bash -p gnutar gzip unzip xz
+  '';
+in stdenv.mkDerivation {
   name = "xtrt";
   src = sources.xtrt;
   installPhase = ''
-    sed -i '1s/#!.*/#!\/usr\/bin\/env nix-shell\n#!nix-shell -i bash -p gnutar gzip unzip xz/' xtrt
-    mkdir -p $out/bin;
-    cp xtrt $out/bin;
+    mkdir -p $out/bin
+    substitute xtrt $out/bin/xtrt --replace "#!/usr/bin/env bash" "${shebang}"
   '';
 }
