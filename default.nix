@@ -5,7 +5,8 @@ with super;
 
 let
   sources =
-    mapAttrs (_: fetchFromGitHub) (fromJSON (readFile ./sources.lock.json));
+    mapAttrs (_: v: v // { src = fetchFromGitHub (removeAttrs v [ "ref" ]); })
+    (fromJSON (readFile ./sources.lock.json));
 in rec {
   luaformatter = callPackage ./pkgs/luaformatter { inherit sources; };
   mmtc = callPackage ./pkgs/mmtc { inherit rustTools sources; };

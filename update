@@ -41,6 +41,7 @@ for line in open("sources.txt").readlines():
     lock[name] = {
         "owner": owner,
         "repo": repo,
+        "ref": ref,
         "rev": rev,
         "sha256": getsha256(),
     }

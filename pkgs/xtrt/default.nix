@@ -6,8 +6,9 @@ let
     #!nix-shell -i bash -p gnutar gzip unzip xz
   '';
 in stdenv.mkDerivation {
-  name = "xtrt";
-  src = sources.xtrt;
+  pname = "xtrt";
+  version = builtins.substring 0 7 sources.xtrt.rev;
+  src = sources.xtrt.src;
   installPhase = ''
     substituteInPlace xtrt --replace "#!/usr/bin/env bash" "${shebang}"
     mkdir -p $out/bin
