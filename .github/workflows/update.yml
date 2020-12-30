@@ -23,11 +23,7 @@ jobs:
         run: |
           git config --local user.name "github-actions"
           git config --local user.email "action@github.com"
-          nix flake update --recreate-lock-file
-          if [ -n "$(git diff)" ]; then
-            git add flake.lock
-            git commit -m "update lock file"
-          fi
+          nix flake update --{recreate,commit}-lock-file
 
       - name: Push changes
         uses: ad-m/github-push-action@master
