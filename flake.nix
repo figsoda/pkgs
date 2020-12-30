@@ -106,6 +106,6 @@
           };
         };
 
-        overlay = final: prev: packages;
+        overlay = _: _: packages;
       });
 }
