@@ -20,7 +20,7 @@ As an overlay
 As a set of packages
 
 ```nix
-import "${fetchTarball https://github.com/figsoda/nix-packages/archive/main.tar.gz}/packages.nix" {}
+import "${fetchTarball https://github.com/figsoda/nix-packages/archive/main.tar.gz}/packages.nix"
 ```
 
 
@@ -28,5 +28,4 @@ import "${fetchTarball https://github.com/figsoda/nix-packages/archive/main.tar.
 
 - [luaformatter](https://github.com/koihik/luaformatter)
 - [mmtc](https://github.com/figsoda/mmtc)
-- rustTools - wrapper around [naersk](https://github.com/nmattia/naersk) and [nixpkgs-mozilla](https://github.com/mozilla/nixpkgs-mozilla) to build rust packages
 - [xtrt](https://github.com/figsoda/xtrt)

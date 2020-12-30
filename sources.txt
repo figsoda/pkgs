@@ -1,9 +1,0 @@
-antlr4: antlr/antlr4@4.9
-args-cpp: taywee/args@6.2.4
-catch2-cpp: catchorg/catch2@v2.13.3
-luaformatter: koihik/luaformatter@1.3.4
-mmtc: figsoda/mmtc@v0.2.6
-mozilla: mozilla/nixpkgs-mozilla
-naersk: nmattia/naersk
-xtrt: figsoda/xtrt@main
-yaml-cpp: jbeder/yaml-cpp@yaml-cpp-0.6.3
