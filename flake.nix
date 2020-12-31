@@ -43,7 +43,7 @@
     };
   };
 
-  outputs = { self, flake-utils, naersk, nixpkgs, nixpkgs-mozilla, ... }@inputs:
+  outputs = { flake-utils, naersk, nixpkgs, nixpkgs-mozilla, ... }@inputs:
     flake-utils.lib.eachDefaultSystem (system:
       with builtins;
       let
