@@ -93,11 +93,11 @@
             src = inputs.xtrt;
             patchPhase = ''
               substituteInPlace xtrt \
-                --replace "bzip2 " ${pkgs.bzip2}/bin/bzip2 \
-                --replace "gzip " ${pkgs.gzip}/bin/gzip \
-                --replace "tar " ${pkgs.gnutar}/bin/tar \
-                --replace "unzip " ${pkgs.unzip}/bin/unzip \
-                --replace "xz " ${pkgs.xz}/bin/xz
+                --replace "bzip2 " "${pkgs.bzip2}/bin/bzip2 " \
+                --replace "gzip " "${pkgs.gzip}/bin/gzip " \
+                --replace "tar " "${pkgs.gnutar}/bin/tar " \
+                --replace "unzip " "${pkgs.unzip}/bin/unzip " \
+                --replace "xz " "${pkgs.xz}/bin/xz "
             '';
             installPhase = ''
               mkdir -p $out/bin
