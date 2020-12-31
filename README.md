@@ -5,6 +5,17 @@ My nix packages
 
 ## Usage
 
+As a flake (recommended)
+
+```nix
+# flake.nix
+{
+  inputs = {
+    figsoda-pkgs.url = "github:figsoda/nix-packages";
+  };
+}
+```
+
 As an overlay
 
 ```nix
