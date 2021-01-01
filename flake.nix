@@ -25,6 +25,7 @@
       url = "github:figsoda/mmtc/v0.2.6";
       flake = false;
     };
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     nixpkgs-mozilla = {
       url = "github:mozilla/nixpkgs-mozilla";
       flake = false;
