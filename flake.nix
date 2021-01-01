@@ -12,10 +12,6 @@
       url = "github:catchorg/catch2/v2.13.3";
       flake = false;
     };
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
     flake-utils.url = "github:numtide/flake-utils";
     luaformatter = {
       url = "github:koihik/luaformatter/1.3.4";
