@@ -2,6 +2,12 @@
 
 My nix packages
 
+Binary cache is available for x86_64-linux on [cachix](https://app.cachix.org/cache/figsoda)
+
+```sh
+cachix use figsoda
+```
+
 
 ## Usage
 

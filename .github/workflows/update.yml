@@ -18,11 +18,20 @@ jobs:
           install_url: https://github.com/numtide/nix-flakes-installer/releases/latest/download/install
           extra_nix_config: experimental-features = flakes nix-command
 
+      - name: Set up cachix
+        uses: cachix/cachix-action@v8
+        with:
+          name: fenix
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
       - name: Update lock file
         run: |
           git config --local user.name "github-actions"
           git config --local user.email "action@github.com"
           nix flake update --{recreate,commit}-lock-file
+
+      - name: Build with nix
+        run: nix build .#luaformatter .#mmtc .#xtrt
 
       - name: Push changes
         uses: ad-m/github-push-action@master
