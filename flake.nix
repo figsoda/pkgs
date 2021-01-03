@@ -28,11 +28,11 @@
       url = "github:figsoda/mmtc/v0.2.6";
       flake = false;
     };
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     naersk = {
       url = "github:nmattia/naersk";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     xtrt = {
       url = "github:figsoda/xtrt";
       flake = false;
@@ -75,11 +75,7 @@
 
             mmtc = (naersk.lib.${system}.override {
               inherit (fenix.packages.${system}.minimal) cargo rustc;
-            }).buildPackage {
-              pname = "mmtc";
-              version = nixpkgs.lib.removePrefix "v" sources.mmtc.original.ref;
-              src = inputs.mmtc;
-            };
+            }).buildPackage { src = inputs.mmtc; };
 
             xtrt = pkgs.stdenv.mkDerivation {
               pname = "xtrt";
