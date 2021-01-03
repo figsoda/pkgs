@@ -14,10 +14,7 @@
     };
     fenix = {
       url = "github:figsoda/fenix";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";
     luaformatter = {

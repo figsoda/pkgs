@@ -53,19 +53,16 @@
     },
     "fenix": {
       "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1609641886,
-        "narHash": "sha256-RRrMuKCKmeM4aQ0+WKid4yk1RJEMhfVWSm5/LmUWpGA=",
+        "lastModified": 1609702588,
+        "narHash": "sha256-RFSBtddIoWKbogi1T5KT0aCn8JVYWflWntbGA9hFteo=",
         "owner": "figsoda",
         "repo": "fenix",
-        "rev": "a0a87d47281692f386526efeb63a539037509bf3",
+        "rev": "7f0d7ba7c38b6a354a9bd43f534411370e829692",
         "type": "github"
       },
       "original": {
