@@ -51,6 +51,29 @@
         "type": "github"
       }
     },
+    "fenix": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1609641886,
+        "narHash": "sha256-RRrMuKCKmeM4aQ0+WKid4yk1RJEMhfVWSm5/LmUWpGA=",
+        "owner": "figsoda",
+        "repo": "fenix",
+        "rev": "a0a87d47281692f386526efeb63a539037509bf3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "figsoda",
+        "repo": "fenix",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1609246779,
@@ -135,33 +158,17 @@
         "type": "indirect"
       }
     },
-    "nixpkgs-mozilla": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1603906276,
-        "narHash": "sha256-RsNPnEKd7BcogwkqhaV5kI/HuNC4flH/OQCC/4W5y/8=",
-        "owner": "mozilla",
-        "repo": "nixpkgs-mozilla",
-        "rev": "8c007b60731c07dd7a052cce508de3bb1ae849b4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mozilla",
-        "repo": "nixpkgs-mozilla",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "antlr4": "antlr4",
         "args": "args",
         "catch2": "catch2",
+        "fenix": "fenix",
         "flake-utils": "flake-utils",
         "luaformatter": "luaformatter",
         "mmtc": "mmtc",
         "naersk": "naersk",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-mozilla": "nixpkgs-mozilla",
         "xtrt": "xtrt",
         "yaml-cpp": "yaml-cpp"
       }

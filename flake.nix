@@ -12,6 +12,13 @@
       url = "github:catchorg/catch2/v2.13.3";
       flake = false;
     };
+    fenix = {
+      url = "github:figsoda/fenix";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     flake-utils.url = "github:numtide/flake-utils";
     luaformatter = {
       url = "github:koihik/luaformatter/1.3.4";
@@ -22,10 +29,6 @@
       flake = false;
     };
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    nixpkgs-mozilla = {
-      url = "github:mozilla/nixpkgs-mozilla";
-      flake = false;
-    };
     naersk = {
       url = "github:nmattia/naersk";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,19 +43,13 @@
     };
   };
 
-  outputs = { flake-utils, naersk, nixpkgs, nixpkgs-mozilla, ... }@inputs:
+  outputs = { flake-utils, fenix, naersk, nixpkgs, ... }@inputs:
     let
       outputs = flake-utils.lib.eachDefaultSystem (system:
         with builtins;
         let
           sources = (fromJSON (readFile ./flake.lock)).nodes;
           pkgs = nixpkgs.legacyPackages.${system};
-          mozilla = pkgs.callPackage "${nixpkgs-mozilla}/package-set.nix" { };
-          rustNightly = (mozilla.rustChannelOf {
-            date = "2020-12-30";
-            channel = "nightly";
-            sha256 = "f2/rc0jI1wzvU/b82nyR+ehLtuOjLv7TjnCmtbUClcA=";
-          }).rust;
         in rec {
           defaultPackage = packages;
 
@@ -77,8 +74,7 @@
             };
 
             mmtc = (naersk.lib.${system}.override {
-              cargo = rustNightly;
-              rustc = rustNightly;
+              inherit (fenix.packages.${system}.minimal) cargo rustc;
             }).buildPackage {
               pname = "mmtc";
               version = nixpkgs.lib.removePrefix "v" sources.mmtc.original.ref;
