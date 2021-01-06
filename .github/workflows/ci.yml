@@ -1,12 +1,10 @@
-name: update
+name: ci
 
-on:
-  schedule:
-    - cron: "0 3 * * *"
+on: push
 
 jobs:
-  update:
-    name: update
+  build:
+    name: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,17 +22,5 @@ jobs:
           name: figsoda
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
-      - name: Update lock file
-        run: |
-          git config --local user.name "github-actions"
-          git config --local user.email "action@github.com"
-          nix flake update --{recreate,commit}-lock-file
-
       - name: Build with nix
         run: nix build .#{luaformatter,mmtc,xtrt}
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ github.token }}
-          branch: main
