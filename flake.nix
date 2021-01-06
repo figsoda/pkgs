@@ -72,7 +72,10 @@
 
             mmtc = (naersk.lib.${system}.override {
               inherit (fenix.packages.${system}.minimal) cargo rustc;
-            }).buildPackage { src = inputs.mmtc; };
+            }).buildPackage {
+              src = inputs.mmtc;
+              donStrip = true;
+            };
 
             xtrt = pkgs.stdenv.mkDerivation {
               pname = "xtrt";
