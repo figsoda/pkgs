@@ -74,7 +74,12 @@
               inherit (fenix.packages.${system}.minimal) cargo rustc;
             }).buildPackage {
               src = inputs.mmtc;
-              donStrip = true;
+              singleStep = true;
+              fixupPhase = ''
+                patchelf \
+                  --set-interpreter "$(< ${pkgs.stdenv.cc}/nix-support/dynamic-linker)" \
+                  $out/bin/mmtc
+              '';
             };
 
             xtrt = pkgs.stdenv.mkDerivation {
