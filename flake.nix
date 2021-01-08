@@ -75,11 +75,6 @@
             }).buildPackage {
               src = inputs.mmtc;
               singleStep = true;
-              fixupPhase = ''
-                patchelf \
-                  --set-interpreter "$(< ${pkgs.stdenv.cc}/nix-support/dynamic-linker)" \
-                  $out/bin/mmtc
-              '';
             };
 
             xtrt = pkgs.stdenv.mkDerivation {
