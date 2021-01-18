@@ -9,7 +9,7 @@
       flake = false;
     };
     catch2 = {
-      url = "github:catchorg/catch2/v2.13.3";
+      url = "github:catchorg/catch2/v2.13.4";
       flake = false;
     };
     fenix = {

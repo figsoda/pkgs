@@ -37,16 +37,16 @@
     "catch2": {
       "flake": false,
       "locked": {
-        "lastModified": 1604164883,
-        "narHash": "sha256-2j9Ssz9asw+3Wkh4INnK690zTuyuOPumGmnZUJXm91Q=",
+        "lastModified": 1609250620,
+        "narHash": "sha256-8tR8MCFYK5XXtJQaIuZ59PJ3h3UYbfXKkaOfcBRt1Xo=",
         "owner": "catchorg",
         "repo": "catch2",
-        "rev": "ff349a50bfc6214b4081f4ca63c7de35e2162f60",
+        "rev": "de6fe184a9ac1a06895cdd1c9b437f0a0bdf14ad",
         "type": "github"
       },
       "original": {
         "owner": "catchorg",
-        "ref": "v2.13.3",
+        "ref": "v2.13.4",
         "repo": "catch2",
         "type": "github"
       }
