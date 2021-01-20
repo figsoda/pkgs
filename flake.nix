@@ -71,14 +71,17 @@
             };
 
             mmtc = let
-              isLinux = system == "x86_64-linux";
-              musl = "x86_64-unknown-linux-musl";
-              toolchain = with fenix.packages.${system};
-                if isLinux then
+              orig = pkgs.rust.toRustTarget pkgs.stdenv.targetPlatform;
+              m = match "(.+-unknown-linux-)[[:alpha:]]+" orig;
+              target = if m == null then orig else "${elemAt m 0}musl";
+              fp = fenix.packages.${system};
+              musl = m != null && fp.targets ? ${target};
+              toolchain = with fp;
+                if musl then
                   combine [
                     minimal.cargo
                     minimal.rustc
-                    targets.${musl}.latest.rust-std
+                    targets.${target}.latest.rust-std
                   ]
                 else
                   minimal.toolchain;
@@ -88,7 +91,7 @@
             }).buildPackage {
               src = inputs.mmtc;
               singleStep = true;
-              CARGO_BUILD_TARGET = if isLinux then musl else null;
+              CARGO_BUILD_TARGET = if musl then target else null;
             };
 
             xtrt = pkgs.stdenv.mkDerivation {
