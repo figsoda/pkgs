@@ -70,11 +70,25 @@
               '';
             };
 
-            mmtc = (naersk.lib.${system}.override {
-              inherit (fenix.packages.${system}.minimal) cargo rustc;
+            mmtc = let
+              isLinux = system == "x86_64-linux";
+              musl = "x86_64-unknown-linux-musl";
+              toolchain = with fenix.packages.${system};
+                if isLinux then
+                  combine [
+                    minimal.cargo
+                    minimal.rustc
+                    targets.${musl}.latest.rust-std
+                  ]
+                else
+                  minimal.toolchain;
+            in (naersk.lib.${system}.override {
+              cargo = toolchain;
+              rustc = toolchain;
             }).buildPackage {
               src = inputs.mmtc;
               singleStep = true;
+              CARGO_BUILD_TARGET = if isLinux then musl else null;
             };
 
             xtrt = pkgs.stdenv.mkDerivation {
