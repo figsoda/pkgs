@@ -13,7 +13,7 @@
       flake = false;
     };
     fenix = {
-      url = "github:figsoda/fenix";
+      url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";
