@@ -90,7 +90,6 @@
               rustc = toolchain;
             }).buildPackage {
               src = inputs.mmtc;
-              singleStep = true;
               CARGO_BUILD_TARGET = if musl then target else null;
             };
 
