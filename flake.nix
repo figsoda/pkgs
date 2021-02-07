@@ -22,7 +22,7 @@
       flake = false;
     };
     mmtc = {
-      url = "github:figsoda/mmtc/v0.2.11";
+      url = "github:figsoda/mmtc/v0.2.12";
       flake = false;
     };
     naersk = {

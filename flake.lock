@@ -108,16 +108,16 @@
     "mmtc": {
       "flake": false,
       "locked": {
-        "lastModified": 1612724152,
-        "narHash": "sha256-nAPZuiFGxV5r80ID6PAQd2d11b2AK2T2arDffBGL+wk=",
+        "lastModified": 1612733194,
+        "narHash": "sha256-RJtEWuKQqo5qkwgAqbqtR+v7ujZ4/zvZFttQzNG2DLI=",
         "owner": "figsoda",
         "repo": "mmtc",
-        "rev": "9d52ad96dc821c4b3be0275471e37dcb635593ed",
+        "rev": "e307158e426deef0e2935ab611018c2f2da68e6d",
         "type": "github"
       },
       "original": {
         "owner": "figsoda",
-        "ref": "v0.2.11",
+        "ref": "v0.2.12",
         "repo": "mmtc",
         "type": "github"
       }
