@@ -12,22 +12,10 @@
       url = "github:catchorg/catch2/v2.13.4";
       flake = false;
     };
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     flake-utils.url = "github:numtide/flake-utils";
     luaformatter = {
       url = "github:koihik/luaformatter/1.3.4";
       flake = false;
-    };
-    mmtc = {
-      url = "github:figsoda/mmtc/v0.2.12";
-      flake = false;
-    };
-    naersk = {
-      url = "github:nmattia/naersk";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     xtrt = {
@@ -40,7 +28,7 @@
     };
   };
 
-  outputs = { flake-utils, fenix, naersk, nixpkgs, ... }@inputs:
+  outputs = { flake-utils, nixpkgs, ... }@inputs:
     let
       outputs = flake-utils.lib.eachDefaultSystem (system:
         with builtins;
@@ -68,29 +56,6 @@
                 mkdir -p $out/bin
                 cp lua-format $out/bin
               '';
-            };
-
-            mmtc = let
-              orig = pkgs.rust.toRustTarget pkgs.stdenv.targetPlatform;
-              m = match "(.+-unknown-linux-)[[:alpha:]]+" orig;
-              target = if m == null then orig else "${elemAt m 0}musl";
-              fp = fenix.packages.${system};
-              musl = m != null && fp.targets ? ${target};
-              toolchain = with fp;
-                if musl then
-                  combine [
-                    minimal.cargo
-                    minimal.rustc
-                    targets.${target}.latest.rust-std
-                  ]
-                else
-                  minimal.toolchain;
-            in (naersk.lib.${system}.override {
-              cargo = toolchain;
-              rustc = toolchain;
-            }).buildPackage {
-              src = inputs.mmtc;
-              CARGO_BUILD_TARGET = if musl then target else null;
             };
 
             xtrt = pkgs.stdenv.mkDerivation {
