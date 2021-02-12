@@ -1,7 +1,7 @@
 {
   inputs = {
     antlr4 = {
-      url = "github:antlr/antlr4/4.9";
+      url = "github:antlr/antlr4/4.9.1";
       flake = false;
     };
     args = {
@@ -14,7 +14,7 @@
     };
     flake-utils.url = "github:numtide/flake-utils";
     luaformatter = {
-      url = "github:koihik/luaformatter/1.3.4";
+      url = "github:koihik/luaformatter/1.3.5";
       flake = false;
     };
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
