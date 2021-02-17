@@ -69,16 +69,16 @@
     "luaformatter": {
       "flake": false,
       "locked": {
-        "lastModified": 1611937685,
-        "narHash": "sha256-ifESbilYcBdVP6L7d7hnLBuHcLZT6qanfbOI2Sk1Fak=",
+        "lastModified": 1592023081,
+        "narHash": "sha256-KcOo71cNyg3JWxhrZ120kvodbq5FjGQmsFCm0B84jv8=",
         "owner": "koihik",
         "repo": "luaformatter",
-        "rev": "638ec8a7c114a0082ce60481afe8f46072e427e5",
+        "rev": "7aa6b8a4156e8153d1cbf8d96f1c70d144d587ea",
         "type": "github"
       },
       "original": {
         "owner": "koihik",
-        "ref": "1.3.5",
+        "ref": "1.3.4",
         "repo": "luaformatter",
         "type": "github"
       }

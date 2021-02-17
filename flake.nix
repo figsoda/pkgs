@@ -14,7 +14,7 @@
     };
     flake-utils.url = "github:numtide/flake-utils";
     luaformatter = {
-      url = "github:koihik/luaformatter/1.3.5";
+      url = "github:koihik/luaformatter/1.3.4";
       flake = false;
     };
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
