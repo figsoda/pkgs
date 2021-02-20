@@ -106,24 +106,7 @@
         "flake-utils": "flake-utils",
         "luaformatter": "luaformatter",
         "nixpkgs": "nixpkgs",
-        "xtrt": "xtrt",
         "yaml-cpp": "yaml-cpp"
-      }
-    },
-    "xtrt": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1613523022,
-        "narHash": "sha256-bosADVyI4qsJllExX2W9Xom/UEXcqHJDOi6WXg0mdBw=",
-        "owner": "figsoda",
-        "repo": "xtrt",
-        "rev": "61884fb7c48c7e1e2194afd82b85f415a6dc7c20",
-        "type": "github"
-      },
-      "original": {
-        "owner": "figsoda",
-        "repo": "xtrt",
-        "type": "github"
       }
     },
     "yaml-cpp": {

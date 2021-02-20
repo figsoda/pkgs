@@ -18,10 +18,6 @@
       flake = false;
     };
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    xtrt = {
-      url = "github:figsoda/xtrt";
-      flake = false;
-    };
     yaml-cpp = {
       url = "github:jbeder/yaml-cpp/yaml-cpp-0.6.3";
       flake = false;
@@ -55,24 +51,6 @@
               installPhase = ''
                 mkdir -p $out/bin
                 cp lua-format $out/bin
-              '';
-            };
-
-            xtrt = pkgs.stdenv.mkDerivation {
-              pname = "xtrt";
-              version = substring 0 7 sources.xtrt.locked.rev;
-              src = inputs.xtrt;
-              patchPhase = ''
-                substituteInPlace xtrt \
-                  --replace "bzip2 " "${pkgs.bzip2}/bin/bzip2 " \
-                  --replace "gzip " "${pkgs.gzip}/bin/gzip " \
-                  --replace "tar " "${pkgs.gnutar}/bin/tar " \
-                  --replace "unzip " "${pkgs.unzip}/bin/unzip " \
-                  --replace "xz " "${pkgs.xz}/bin/xz "
-              '';
-              installPhase = ''
-                mkdir -p $out/bin
-                cp xtrt $out/bin
               '';
             };
           };
