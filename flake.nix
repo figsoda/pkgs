@@ -22,6 +22,10 @@
       url = "github:jbeder/yaml-cpp/yaml-cpp-0.6.3";
       flake = false;
     };
+    ymdl = {
+      url = "github:figsoda/ymdl";
+      flake = false;
+    };
   };
 
   outputs = { flake-utils, nixpkgs, ... }@inputs:
@@ -51,6 +55,23 @@
               installPhase = ''
                 mkdir -p $out/bin
                 cp lua-format $out/bin
+              '';
+            };
+
+            ymdl = pkgs.stdenv.mkDerivation {
+              pname = "ymdl";
+              version = "unstable-${sources.ymdl.locked.rev}";
+              src = inputs.ymdl;
+              installPhase = ''
+                mkdir -p $out/{bin,lib}
+                cp postdl.py $out/lib
+                substitute {,$out/bin/}ymdl \
+                  --replace "python3 postdl.py" "${
+                    (pkgs.python3.withPackages
+                      (ps: [ ps.pytaglib ])).interpreter
+                  } $out/lib/postdl.py" \
+                  --replace youtube-dl ${pkgs.youtube-dl}/bin/youtube-dl
+                chmod +x $out/bin/ymdl
               '';
             };
           };

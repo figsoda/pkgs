@@ -106,7 +106,8 @@
         "flake-utils": "flake-utils",
         "luaformatter": "luaformatter",
         "nixpkgs": "nixpkgs",
-        "yaml-cpp": "yaml-cpp"
+        "yaml-cpp": "yaml-cpp",
+        "ymdl": "ymdl"
       }
     },
     "yaml-cpp": {
@@ -123,6 +124,22 @@
         "owner": "jbeder",
         "ref": "yaml-cpp-0.6.3",
         "repo": "yaml-cpp",
+        "type": "github"
+      }
+    },
+    "ymdl": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1614546406,
+        "narHash": "sha256-0USSpGTaPbkxE4v1nxMArNnfN0fkk+ALCJsSZEwaVUE=",
+        "owner": "figsoda",
+        "repo": "ymdl",
+        "rev": "286427ff961d19265dc1050e02d1b3ce34020635",
+        "type": "github"
+      },
+      "original": {
+        "owner": "figsoda",
+        "repo": "ymdl",
         "type": "github"
       }
     }
