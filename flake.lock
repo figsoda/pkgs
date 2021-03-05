@@ -1,56 +1,5 @@
 {
   "nodes": {
-    "antlr4": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1609874522,
-        "narHash": "sha256-cwxNZKBKtYrfBkuC/blr0plTI2X3kb4zDdmVjUI9IJA=",
-        "owner": "antlr",
-        "repo": "antlr4",
-        "rev": "5c2b686f95e1a42f302fefd99271863bf25b2e06",
-        "type": "github"
-      },
-      "original": {
-        "owner": "antlr",
-        "ref": "4.9.1",
-        "repo": "antlr4",
-        "type": "github"
-      }
-    },
-    "args": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1611858921,
-        "narHash": "sha256-s/x9Id20UCXSZbNZaKaTv9DwZb1kD2VjL4Hugf7swoI=",
-        "owner": "taywee",
-        "repo": "args",
-        "rev": "ae22269df734a2b0957a9ab4e37be41f61866dbe",
-        "type": "github"
-      },
-      "original": {
-        "owner": "taywee",
-        "ref": "6.2.4",
-        "repo": "args",
-        "type": "github"
-      }
-    },
-    "catch2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1609250620,
-        "narHash": "sha256-8tR8MCFYK5XXtJQaIuZ59PJ3h3UYbfXKkaOfcBRt1Xo=",
-        "owner": "catchorg",
-        "repo": "catch2",
-        "rev": "de6fe184a9ac1a06895cdd1c9b437f0a0bdf14ad",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catchorg",
-        "ref": "v2.13.4",
-        "repo": "catch2",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "locked": {
         "lastModified": 1614513358,
@@ -63,23 +12,6 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "luaformatter": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1592023081,
-        "narHash": "sha256-KcOo71cNyg3JWxhrZ120kvodbq5FjGQmsFCm0B84jv8=",
-        "owner": "koihik",
-        "repo": "luaformatter",
-        "rev": "7aa6b8a4156e8153d1cbf8d96f1c70d144d587ea",
-        "type": "github"
-      },
-      "original": {
-        "owner": "koihik",
-        "ref": "1.3.4",
-        "repo": "luaformatter",
         "type": "github"
       }
     },
@@ -100,31 +32,9 @@
     },
     "root": {
       "inputs": {
-        "antlr4": "antlr4",
-        "args": "args",
-        "catch2": "catch2",
         "flake-utils": "flake-utils",
-        "luaformatter": "luaformatter",
         "nixpkgs": "nixpkgs",
-        "yaml-cpp": "yaml-cpp",
         "ymdl": "ymdl"
-      }
-    },
-    "yaml-cpp": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1569430560,
-        "narHash": "sha256-Ggx+ybQyArIMPfXEffMUqFAbIPbvJJMRRTtyzvrvc3o=",
-        "owner": "jbeder",
-        "repo": "yaml-cpp",
-        "rev": "9a3624205e8774953ef18f57067b3426c1c5ada6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jbeder",
-        "ref": "yaml-cpp-0.6.3",
-        "repo": "yaml-cpp",
-        "type": "github"
       }
     },
     "ymdl": {

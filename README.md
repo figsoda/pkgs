@@ -43,5 +43,4 @@ import "${fetchTarball https://github.com/figsoda/nix-packages/archive/main.tar.
 
 ## Available packages
 
-- [luaformatter](https://github.com/koihik/luaformatter)
 - [ymdl](https://github.com/figsoda/ymdl)
