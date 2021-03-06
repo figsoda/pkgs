@@ -9,9 +9,10 @@
   };
 
   outputs = { flake-utils, nixpkgs, ... }@inputs:
+    with builtins;
+    with flake-utils.lib;
     let
-      outputs = flake-utils.lib.eachDefaultSystem (system:
-        with builtins;
+      outputs = eachSystem allSystems (system:
         let
           sources = (fromJSON (readFile ./flake.lock)).nodes;
           pkgs = nixpkgs.legacyPackages.${system};
