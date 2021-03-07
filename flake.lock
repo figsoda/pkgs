@@ -40,11 +40,11 @@
     "ymdl": {
       "flake": false,
       "locked": {
-        "lastModified": 1615148947,
-        "narHash": "sha256-O1R5hiNw3cPdVYu586CdyqcE7rZwlGnp8G4tBs+mjVM=",
+        "lastModified": 1615149942,
+        "narHash": "sha256-j8wNlhQzbG0q2wJnlufPknAkWZSCeYijtmavCXjRDhM=",
         "owner": "figsoda",
         "repo": "ymdl",
-        "rev": "8b9a18c34ebd1042f183548ae094339f6df052e1",
+        "rev": "785719f06f4067ea32fe3cffa2be451df0479ed9",
         "type": "github"
       },
       "original": {
