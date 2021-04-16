@@ -15,14 +15,14 @@ jobs:
       - name: Install nix
         uses: cachix/install-nix-action@v13
         with:
-          install_url: https://github.com/numtide/nix-flakes-installer/releases/latest/download/install
+          install_url: https://github.com/numtide/nix-unstable-installer/releases/latest/download/install
           extra_nix_config: experimental-features = flakes nix-command
 
       - name: Update lock file
         run: |
           git config --local user.name "github-actions"
           git config --local user.email "action@github.com"
-          nix flake update --{recreate,commit}-lock-file
+          nix flake update --commit-lock-file
 
       - name: Push changes
         uses: ad-m/github-push-action@master
