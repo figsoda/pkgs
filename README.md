@@ -29,7 +29,7 @@ As an overlay
 {
   nixpkgs.overlays = [
     (import (fetchTarball
-      https://github.com/figsoda/nix-packages/archive/main.tar.gz))
+      "https://github.com/figsoda/nix-packages/archive/main.tar.gz"))
   ];
 }
 ```
@@ -37,7 +37,9 @@ As an overlay
 As a set of packages
 
 ```nix
-import "${fetchTarball https://github.com/figsoda/nix-packages/archive/main.tar.gz}/packages.nix"
+import "${
+  fetchTarball "https://github.com/figsoda/nix-packages/archive/main.tar.gz"
+}/packages.nix"
 ```
 
 
