@@ -18,7 +18,7 @@
       "x86_64-linux"
     ] (system:
       let
-        inherit (nixpkgs.legacyPackages.${system}) python3 stdenv youtube-dl;
+        inherit (nixpkgs.legacyPackages.${system}) python3 stdenv yt-dlp;
         sources = with builtins; (fromJSON (readFile ./flake.lock)).nodes;
       in {
         ymdl = stdenv.mkDerivation {
@@ -32,9 +32,10 @@
               --replace "python3 postdl.py" "${
                 (python3.withPackages (ps: [ ps.pytaglib ])).interpreter
               } $out/lib/postdl.py" \
-              --replace youtube-dl ${youtube-dl}/bin/youtube-dl
+              --replace yt-dlp ${yt-dlp}/bin/yt-dlp
             chmod +x $out/bin/ymdl
           '';
+          meta.mainProgram = "ymdl";
         };
       });
 
