@@ -7,7 +7,7 @@
     };
   };
 
-  outputs = { nixpkgs, ... }@inputs: rec {
+  outputs = { nixpkgs, ymdl, ... }: rec {
     defaultPackage = packages;
 
     packages = nixpkgs.lib.genAttrs [
@@ -19,12 +19,12 @@
     ] (system:
       let
         inherit (nixpkgs.legacyPackages.${system}) python3 stdenv yt-dlp;
-        sources = with builtins; (fromJSON (readFile ./flake.lock)).nodes;
+        date = input: builtins.substring 0 8 input.lastModifiedDate;
       in {
         ymdl = stdenv.mkDerivation {
           pname = "ymdl";
-          version = "unstable-${sources.ymdl.locked.rev}";
-          src = inputs.ymdl;
+          version = date ymdl;
+          src = ymdl;
           installPhase = ''
             mkdir -p $out/{bin,lib}
             cp postdl.py $out/lib
@@ -35,7 +35,6 @@
               --replace yt-dlp ${yt-dlp}/bin/yt-dlp
             chmod +x $out/bin/ymdl
           '';
-          meta.mainProgram = "ymdl";
         };
       });
 
