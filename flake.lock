@@ -19,7 +19,24 @@
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
+        "rust-templates": "rust-templates",
         "ymdl": "ymdl"
+      }
+    },
+    "rust-templates": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1631825622,
+        "narHash": "sha256-jXcZOv/gEahDmJoYp64S/y9/BqAFFvts9DUfOtcSKd8=",
+        "owner": "figsoda",
+        "repo": "rust-templates",
+        "rev": "f4d014351fc2c0c6df533710613c2fd623ea1a1c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "figsoda",
+        "repo": "rust-templates",
+        "type": "github"
       }
     },
     "ymdl": {

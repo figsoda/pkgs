@@ -1,13 +1,17 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    rust-templates = {
+      url = "github:figsoda/rust-templates";
+      flake = false;
+    };
     ymdl = {
       url = "github:figsoda/ymdl";
       flake = false;
     };
   };
 
-  outputs = { nixpkgs, ymdl, ... }: rec {
+  outputs = { nixpkgs, rust-templates, ymdl, ... }: rec {
     defaultPackage = packages;
 
     packages = nixpkgs.lib.genAttrs [
@@ -18,9 +22,24 @@
       "x86_64-linux"
     ] (system:
       let
-        inherit (nixpkgs.legacyPackages.${system}) python3 stdenv yt-dlp;
+        inherit (nixpkgs.legacyPackages.${system}) python3 sd stdenv yt-dlp;
         date = input: builtins.substring 0 8 input.lastModifiedDate;
       in {
+        rust-templates = stdenv.mkDerivation {
+          pname = "rust-templates";
+          version = date rust-templates;
+          src = rust-templates;
+          installPhase = ''
+            mkdir -p $out/{bin,lib}
+            cp -r bin binlib lib $out/lib
+            substitute {,$out/bin/}generate \
+              --replace {,$out/lib/}\$1 \
+              --replace {,${sd}/bin/}sd
+            chmod +x $out/bin/generate
+          '';
+          meta.mainProgram = "generate";
+        };
+
         ymdl = stdenv.mkDerivation {
           pname = "ymdl";
           version = date ymdl;

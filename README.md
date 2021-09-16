@@ -46,3 +46,4 @@ import "${
 ## Available packages
 
 - [ymdl](https://github.com/figsoda/ymdl)
+- [rust-templates](https://github.com/figsoda/rust-templates)
