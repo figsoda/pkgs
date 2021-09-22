@@ -11,8 +11,8 @@
     };
   };
 
-  outputs = { nixpkgs, rust-templates, ymdl, ... }: rec {
-    defaultPackage = packages;
+  outputs = { self, nixpkgs, rust-templates, ymdl }: {
+    defaultPackage = self.packages;
 
     packages = nixpkgs.lib.genAttrs [
       "aarch64-darwin"
@@ -57,6 +57,6 @@
         };
       });
 
-    overlay = _: super: packages.${super.system};
+    overlay = _: super: self.packages.${super.system};
   };
 }
