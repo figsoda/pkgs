@@ -23,12 +23,7 @@ jobs:
           git config --local user.name "github-actions"
           git config --local user.email "action@github.com"
           nix flake update --commit-lock-file
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ github.token }}
-          branch: main
+          git push
 
       - name: Set up cachix
         uses: cachix/cachix-action@v10
