@@ -28,8 +28,7 @@ As an overlay
 # configuration.nix
 {
   nixpkgs.overlays = [
-    (import (fetchTarball
-      "https://github.com/figsoda/nix-packages/archive/main.tar.gz"))
+    (import (fetchTarball "https://github.com/figsoda/nix-packages/archive/main.tar.gz"))
   ];
 }
 ```
@@ -37,13 +36,11 @@ As an overlay
 As a set of packages
 
 ```nix
-import "${
-  fetchTarball "https://github.com/figsoda/nix-packages/archive/main.tar.gz"
-}/packages.nix"
+import "${fetchTarball "https://github.com/figsoda/nix-packages/archive/main.tar.gz"}/packages.nix"
 ```
 
 
 ## Available packages
 
-- [ymdl](https://github.com/figsoda/ymdl)
 - [rust-templates](https://github.com/figsoda/rust-templates)
+- [ymdl](https://github.com/figsoda/ymdl)
