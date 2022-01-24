@@ -52,6 +52,6 @@
         };
       });
 
-    overlay = _: super: self.packages.${super.stdenv.hostPlatform.system};
+    overlay = _: super: self.packages.${super.stdenv.hostPlatform.system} or { };
   };
 }
