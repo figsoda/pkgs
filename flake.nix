@@ -14,7 +14,7 @@
   outputs = { self, nixpkgs, rust-templates, ymdl }: {
     defaultPackage = self.packages;
 
-    packages = nixpkgs.lib.genAttrs nixpkgs.lib.systems.supported.hydra (system:
+    packages = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system:
       let
         inherit (nixpkgs.legacyPackages.${system}) python3 sd stdenv yt-dlp;
         date = input: builtins.substring 0 8 input.lastModifiedDate;
