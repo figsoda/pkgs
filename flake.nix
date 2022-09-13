@@ -1,5 +1,9 @@
 {
   inputs = {
+    marmoset = {
+      url = "github:billpugh/marmoset";
+      flake = false;
+    };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     rust-templates = {
       url = "github:figsoda/rust-templates";
@@ -11,12 +15,13 @@
     };
   };
 
-  outputs = { self, nixpkgs, rust-templates, ymdl }: {
+  outputs = { self, marmoset, nixpkgs, rust-templates, ymdl }: {
     defaultPackage = self.packages;
 
     packages = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system:
       let
-        inherit (nixpkgs.legacyPackages.${system}) python3 sd stdenv yt-dlp;
+        inherit (nixpkgs.legacyPackages.${system})
+          ant jdk11 jre makeWrapper python3 sd stdenv yt-dlp;
         date = input: builtins.substring 0 8 input.lastModifiedDate;
       in
       {
@@ -33,6 +38,39 @@
             chmod +x $out/bin/generate
           '';
           meta.mainProgram = "generate";
+        };
+
+        umd-cs-submit = stdenv.mkDerivation {
+          pname = "umd-cs-submit";
+          version = date marmoset;
+
+          src = marmoset;
+
+          nativeBuildInputs = [ ant jdk11 makeWrapper ];
+
+          postPatch = ''
+            cd CommandLineSubmission
+          '';
+
+          buildPhase = ''
+            runHook preBuild
+
+            mkdir bin
+            ant
+
+            runHook postBuild
+          '';
+
+          installPhase = ''
+            runHook preInstall
+
+            mkdir -p $out/{bin,share}
+            install -Dm644 submit.jar $out/share
+            makeWrapper ${jre}/bin/java $out/bin/umd-cs-submit \
+              --add-flags "-cp $out/share/submit.jar edu.umd.cs.submit.CommandLineSubmit"
+
+            runHook postInstall
+          '';
         };
 
         ymdl = stdenv.mkDerivation {

@@ -43,4 +43,5 @@ import "${fetchTarball "https://github.com/figsoda/nix-packages/archive/main.tar
 ## Available packages
 
 - [rust-templates](https://github.com/figsoda/rust-templates)
+- [umd-cs-submit](https://marmoset.cs.umd.edu/)
 - [ymdl](https://github.com/figsoda/ymdl)
