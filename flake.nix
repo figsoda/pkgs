@@ -72,6 +72,6 @@
           };
         });
 
-    overlays.default = final: prev: self.packages.${prev.stdenv.hostPlatform.system};
+    overlays.default = final: prev: self.packages.${prev.stdenv.hostPlatform.system} or { };
   };
 }
