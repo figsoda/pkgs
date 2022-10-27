@@ -1,9 +1,5 @@
 {
   inputs = {
-    marmoset = {
-      url = "github:billpugh/marmoset";
-      flake = false;
-    };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     rust-templates = {
       url = "github:figsoda/rust-templates";
@@ -15,95 +11,67 @@
     };
   };
 
-  outputs = { self, marmoset, nixpkgs, rust-templates, ymdl }: {
-    defaultPackage = self.packages;
+  outputs = { self, nixpkgs, rust-templates, ymdl }: {
+    packages = nixpkgs.lib.genAttrs
+      [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "i686-linux"
+        "x86_64-darwin"
+        "x86_64-linux"
+      ]
+      (system:
+        let
+          inherit (nixpkgs.legacyPackages.${system}) python3 sd stdenv yt-dlp;
+          date = input: builtins.substring 0 8 input.lastModifiedDate;
+        in
 
-    packages = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system:
-      let
-        inherit (nixpkgs.legacyPackages.${system})
-          ant jdk11 jre makeWrapper python3 sd stdenv yt-dlp;
-        date = input: builtins.substring 0 8 input.lastModifiedDate;
-      in
+        {
+          rust-templates = stdenv.mkDerivation {
+            pname = "rust-templates";
+            version = date rust-templates;
 
-      {
-        rust-templates = stdenv.mkDerivation {
-          pname = "rust-templates";
-          version = date rust-templates;
+            src = rust-templates;
 
-          src = rust-templates;
+            installPhase = ''
+              runHook preInstall
 
-          installPhase = ''
-            runHook preInstall
+              mkdir -p $out/{bin,lib}
+              cp -r bin binlib lib $out/lib
+              substitute {,$out/bin/}generate \
+                --replace {,$out/lib/}\$1 \
+                --replace {,${sd}/bin/}sd
+              chmod +x $out/bin/generate
 
-            mkdir -p $out/{bin,lib}
-            cp -r bin binlib lib $out/lib
-            substitute {,$out/bin/}generate \
-              --replace {,$out/lib/}\$1 \
-              --replace {,${sd}/bin/}sd
-            chmod +x $out/bin/generate
+              runHook postInstall
+            '';
 
-            runHook postInstall
-          '';
+            meta.mainProgram = "generate";
+          };
 
-          meta.mainProgram = "generate";
-        };
+          ymdl = stdenv.mkDerivation {
+            pname = "ymdl";
+            version = date ymdl;
 
-        umd-cs-submit = stdenv.mkDerivation {
-          pname = "umd-cs-submit";
-          version = date marmoset;
+            src = ymdl;
 
-          src = marmoset;
+            installPhase = ''
+              runHook preInstall
 
-          nativeBuildInputs = [ ant jdk11 makeWrapper ];
+              mkdir -p $out/{bin,lib}
+              cp postdl.py $out/lib
+              substitute {,$out/bin/}ymdl \
+                --replace "python3 postdl.py" "${
+                  (python3.withPackages (ps: [ ps.pytaglib ])).interpreter
+                } $out/lib/postdl.py" \
+                --replace yt-dlp ${yt-dlp}/bin/yt-dlp
+              chmod +x $out/bin/ymdl
 
-          postPatch = ''
-            cd CommandLineSubmission
-          '';
+              runHook postInstall
+            '';
+          };
+        });
 
-          buildPhase = ''
-            runHook preBuild
-
-            mkdir bin
-            ant
-
-            runHook postBuild
-          '';
-
-          installPhase = ''
-            runHook preInstall
-
-            mkdir -p $out/{bin,share}
-            install -Dm644 submit.jar $out/share
-            makeWrapper ${jre}/bin/java $out/bin/umd-cs-submit \
-              --add-flags "-cp $out/share/submit.jar edu.umd.cs.submit.CommandLineSubmit"
-
-            runHook postInstall
-          '';
-        };
-
-        ymdl = stdenv.mkDerivation {
-          pname = "ymdl";
-          version = date ymdl;
-
-          src = ymdl;
-
-          installPhase = ''
-            runHook preInstall
-
-            mkdir -p $out/{bin,lib}
-            cp postdl.py $out/lib
-            substitute {,$out/bin/}ymdl \
-              --replace "python3 postdl.py" "${
-                (python3.withPackages (ps: [ ps.pytaglib ])).interpreter
-              } $out/lib/postdl.py" \
-              --replace yt-dlp ${yt-dlp}/bin/yt-dlp
-            chmod +x $out/bin/ymdl
-
-            runHook postInstall
-          '';
-        };
-      });
-
-    overlay = _: super: self.packages.${super.stdenv.hostPlatform.system} or { };
+    overlays.default = final: prev: self.packages.${prev.stdenv.hostPlatform.system};
   };
 }
