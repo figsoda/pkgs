@@ -1,4 +1,4 @@
-# nix-packages
+# pkgs
 
 My nix packages
 
@@ -17,7 +17,7 @@ As a flake (recommended)
 # flake.nix
 {
   inputs = {
-    figsoda-pkgs.url = "github:figsoda/nix-packages";
+    figsoda-pkgs.url = "github:figsoda/pkgs";
   };
 }
 ```
@@ -28,7 +28,7 @@ As an overlay
 # configuration.nix
 {
   nixpkgs.overlays = [
-    (import (fetchTarball "https://github.com/figsoda/nix-packages/archive/main.tar.gz"))
+    (import (fetchTarball "https://github.com/figsoda/pkgs/archive/main.tar.gz"))
   ];
 }
 ```
@@ -36,12 +36,11 @@ As an overlay
 As a set of packages
 
 ```nix
-import "${fetchTarball "https://github.com/figsoda/nix-packages/archive/main.tar.gz"}/packages.nix"
+import "${fetchTarball "https://github.com/figsoda/pkgs/archive/main.tar.gz"}/packages.nix"
 ```
 
 
 ## Available packages
 
 - [rust-templates](https://github.com/figsoda/rust-templates)
-- [umd-cs-submit](https://marmoset.cs.umd.edu/)
 - [ymdl](https://github.com/figsoda/ymdl)
