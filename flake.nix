@@ -11,67 +11,74 @@
     };
   };
 
-  outputs = { self, nixpkgs, rust-templates, ymdl }: {
-    packages = nixpkgs.lib.genAttrs
-      [
-        "aarch64-darwin"
-        "aarch64-linux"
-        "i686-linux"
-        "x86_64-darwin"
-        "x86_64-linux"
-      ]
-      (system:
-        let
-          inherit (nixpkgs.legacyPackages.${system}) python3 sd stdenv yt-dlp;
-          date = input: builtins.substring 0 8 input.lastModifiedDate;
-        in
+  outputs = { self, nixpkgs, rust-templates, ymdl }:
+    let
+      inherit (nixpkgs.lib) genAttrs systems;
+    in
+    {
+      formatter = genAttrs systems.flakeExposed
+        (system: nixpkgs.legacyPackages.${system}.nixpkgs-fmt);
 
-        {
-          rust-templates = stdenv.mkDerivation {
-            pname = "rust-templates";
-            version = date rust-templates;
+      packages = genAttrs
+        [
+          "aarch64-darwin"
+          "aarch64-linux"
+          "i686-linux"
+          "x86_64-darwin"
+          "x86_64-linux"
+        ]
+        (system:
+          let
+            inherit (nixpkgs.legacyPackages.${system}) python3 sd stdenv yt-dlp;
+            date = input: builtins.substring 0 8 input.lastModifiedDate;
+          in
 
-            src = rust-templates;
+          {
+            rust-templates = stdenv.mkDerivation {
+              pname = "rust-templates";
+              version = date rust-templates;
 
-            installPhase = ''
-              runHook preInstall
+              src = rust-templates;
 
-              mkdir -p $out/{bin,lib}
-              cp -r bin binlib lib $out/lib
-              substitute {,$out/bin/}generate \
-                --replace {,$out/lib/}\$1 \
-                --replace {,${sd}/bin/}sd
-              chmod +x $out/bin/generate
+              installPhase = ''
+                runHook preInstall
 
-              runHook postInstall
-            '';
+                mkdir -p $out/{bin,lib}
+                cp -r bin binlib lib $out/lib
+                substitute {,$out/bin/}generate \
+                  --replace {,$out/lib/}\$1 \
+                  --replace {,${sd}/bin/}sd
+                chmod +x $out/bin/generate
 
-            meta.mainProgram = "generate";
-          };
+                runHook postInstall
+              '';
 
-          ymdl = stdenv.mkDerivation {
-            pname = "ymdl";
-            version = date ymdl;
+              meta.mainProgram = "generate";
+            };
 
-            src = ymdl;
+            ymdl = stdenv.mkDerivation {
+              pname = "ymdl";
+              version = date ymdl;
 
-            installPhase = ''
-              runHook preInstall
+              src = ymdl;
 
-              mkdir -p $out/{bin,lib}
-              cp postdl.py $out/lib
-              substitute {,$out/bin/}ymdl \
-                --replace "python3 postdl.py" "${
-                  (python3.withPackages (ps: [ ps.pytaglib ])).interpreter
-                } $out/lib/postdl.py" \
-                --replace yt-dlp ${yt-dlp}/bin/yt-dlp
-              chmod +x $out/bin/ymdl
+              installPhase = ''
+                runHook preInstall
 
-              runHook postInstall
-            '';
-          };
-        });
+                mkdir -p $out/{bin,lib}
+                cp postdl.py $out/lib
+                substitute {,$out/bin/}ymdl \
+                  --replace "python3 postdl.py" "${
+                    (python3.withPackages (ps: [ ps.pytaglib ])).interpreter
+                  } $out/lib/postdl.py" \
+                  --replace yt-dlp ${yt-dlp}/bin/yt-dlp
+                chmod +x $out/bin/ymdl
 
-    overlays.default = final: prev: self.packages.${prev.stdenv.hostPlatform.system} or { };
-  };
+                runHook postInstall
+              '';
+            };
+          });
+
+      overlays.default = final: prev: self.packages.${prev.stdenv.hostPlatform.system} or { };
+    };
 }
