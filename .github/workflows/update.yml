@@ -14,9 +14,6 @@ jobs:
 
       - name: Install nix
         uses: cachix/install-nix-action@v20
-        with:
-          install_url: https://github.com/numtide/nix-unstable-installer/releases/latest/download/install
-          extra_nix_config: experimental-features = flakes nix-command
 
       - name: Update lock file
         run: |
