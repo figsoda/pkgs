@@ -26,11 +26,11 @@
     "rust-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1680979863,
-        "narHash": "sha256-ZCAFnd7msWfgnzaZyM/AsTTFtt9sah0BiZXzpIAyzdc=",
+        "lastModified": 1682612481,
+        "narHash": "sha256-8y1NtvNJpk6FpiP78EuPXOoNZ3t1NxNjYl4fhd0Xozc=",
         "owner": "figsoda",
         "repo": "rust-templates",
-        "rev": "14dd189578b12c72cd79bba727f99cc7fc2dfdd0",
+        "rev": "8f21497cf2e9286c55dd0a59ca27b0cd9d179a42",
         "type": "github"
       },
       "original": {
