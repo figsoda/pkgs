@@ -14,7 +14,7 @@ jobs:
         uses: cachix/install-nix-action@v25
 
       - name: Set up cachix
-        uses: cachix/cachix-action@v14
+        uses: cachix/cachix-action@v15
         with:
           name: figsoda
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
